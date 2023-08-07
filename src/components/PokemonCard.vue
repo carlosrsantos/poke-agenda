@@ -58,10 +58,10 @@ export default defineComponent({
 
     const search = ref("");
 
-    const getPokemon = (id?: string) => {
+    const getPokemon = (id: string) => {
       pokeApi
-        .get(id!)
-        .then((p: any) => {
+        .get(id)
+        .then((p) => {
           pokemon.id = p.data.id;
           pokemon.name = p.data.name;
           pokemon.picture = !p.data.sprites.other.dream_world.front_default
@@ -69,7 +69,7 @@ export default defineComponent({
             : p.data.sprites.other.dream_world.front_default;
           pokemon.types = p.data.types;
         })
-        .catch((error: any) => {
+        .catch((error) => {
           console.error(error);
         });
     };
