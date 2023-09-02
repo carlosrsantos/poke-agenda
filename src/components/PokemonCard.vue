@@ -75,7 +75,7 @@ export default defineComponent({
     };
 
     const searchPokemon = (search: string) => {
-      getPokemon(search);
+      getPokemon(search.toLowerCase());
     };
 
     const previousPokemon = () => {
