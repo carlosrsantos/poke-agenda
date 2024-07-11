@@ -1,5 +1,5 @@
 <template>
-  <button @click="$emit('get-pokemon')">
+  <button @click="$emit('get-pokemon')" :disabled="props.disabledButton">
     <span class="material-symbols-outlined">
       {{ props.icon }}
     </span>
@@ -15,9 +15,14 @@ export default defineComponent({
       type: String,
       required: true,
     },
+    disabledButton: {
+      type: Boolean,
+      default: false
+    }
   },
+
   setup(props) {
-    
+
 
     return { props };
   },
@@ -34,5 +39,16 @@ button {
   border-radius: 4px;
   color: var(--bg-color);
   background-color: red;
+}
+
+button:disabled {
+  font-size: 1.5rem;
+  height: 30px;
+  width: 100px;
+  padding: 2px;
+  border: none;
+  border-radius: 4px;
+  color: var(--font-color);
+  background-color: var(--link-color);
 }
 </style>

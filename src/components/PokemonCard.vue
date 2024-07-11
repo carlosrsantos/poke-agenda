@@ -1,31 +1,20 @@
 <template>
   <main>
-    <div class="search">
-      <form>
-        <div class="input-icons">
-          <i class="material-symbols-outlined icon">search</i>
-          <input
-            class="input-field"
-            type="text"
-            v-model="search"
-            placeholder="Pesquisar Pokémon"
-          />
-        </div>
-      </form>
-    </div>
+    <search-pokemon v-model:search="search" />
 
     <div class="card">
       <h3 class="titulo">{{ pokemon.name }}</h3>
       <img :src="pokemon.picture" alt="" class="sprite" />
 
       <h4 class="types">Types:</h4>
-      <ul v-for="type in pokemon.types" :key="type.slot" >
+      <ul v-for="type in pokemon.types" :key="type.slot">
         <li class="types-name">
           {{ type.type.name }}
         </li>
       </ul>
+      <p>Valor:{{ previousButtonDisabled }}</p>
       <div class="buttons">
-        <pokemon-button :icon="'arrow_back'" @get-pokemon="previousPokemon" />
+        <pokemon-button :disabled-button="previousButtonDisabled" :icon="'arrow_back'" @get-pokemon="previousPokemon" />
         <pokemon-button :icon="'arrow_forward'" @get-pokemon="nextPokemon" />
       </div>
     </div>
@@ -42,11 +31,12 @@ import {
   watch,
 } from "vue";
 import { Pokemon } from "../DTOs/Pokemon";
-import pokeApi from "@/service/api";
+import { pokeApi } from "../service/api";
 import PokemonButton from "./PokemonButton.vue";
+import SearchPokemon from "./SearchPokemon.vue";
 
 export default defineComponent({
-  components: { PokemonButton },
+  components: { PokemonButton, SearchPokemon },
   name: "PokemonCard",
   setup() {
     const pokemon = reactive<Pokemon>({
@@ -57,6 +47,8 @@ export default defineComponent({
     });
 
     const search = ref("");
+    const nextButtonDisabled = ref(false);
+    const previousButtonDisabled = ref(false);
 
     const getPokemon = (id: string) => {
       pokeApi
@@ -80,11 +72,13 @@ export default defineComponent({
 
     const previousPokemon = () => {
       if (pokemon.id > 1) {
+        previousButtonDisabled.value = false;
         pokemon.id--;
         getPokemon(pokemon.id.toString());
-      } else {
-        pokemon.id = 1010;
-        getPokemon(pokemon.id.toString());
+      } else if(pokemon.id < 1){
+        // pokemon.id = 1010;
+        // getPokemon(pokemon.id.toString());
+        previousButtonDisabled.value = true;
       }
     };
     const nextPokemon = () => {
@@ -97,6 +91,10 @@ export default defineComponent({
       }
     };
 
+    watch(search, () => {
+      if (search.value) searchPokemon(search.value.toString());
+    });
+
     onBeforeMount(() => {
       pokemon.id = 1;
     });
@@ -105,11 +103,8 @@ export default defineComponent({
       getPokemon(pokemon.id.toString());
     });
 
-    watch(search, () => {
-      if (search.value) searchPokemon(search.value.toString());
-    });
 
-    return { pokemon, previousPokemon, nextPokemon, search };
+    return { pokemon, previousPokemon, previousButtonDisabled  , nextPokemon, nextButtonDisabled, search };
   },
 });
 </script>
@@ -120,42 +115,6 @@ main {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-}
-
-.search {
-  margin: 2% 0;
-  width: max-content;
-  display: inline-flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-}
-
-.input-icons i {
-  position: absolute;
-}
-
-.input-icons {
-  width: 100%;
-  margin-bottom: 10px;
-}
-
-.icon {
-  padding: 10px;
-  color: var(--button-color);
-  min-width: 50px;
-  text-align: center;
-}
-
-.input-field {
-  border: 0.1px var(--link-color);
-  border-radius: 20px;
-  width: 100%;
-  margin: 0 0 0 5px;
-  padding: 10px;
-  text-align: center;
-  background-color: var(--card-color);
-  box-shadow: -3px 5px 9px 0px rgba(50, 50, 50, 0.7);
 }
 
 .card {
@@ -183,15 +142,19 @@ main {
   .card {
     height: 60%;
   }
+
   .titulo {
     font-size: 24px;
   }
+
   .types {
     font-size: 20px;
   }
+
   .types-name {
     font-size: 16px;
   }
+
   .sprite {
     width: 10%;
     height: 35%;
@@ -211,6 +174,7 @@ main {
   height: 65%;
   margin: 5%;
 }
+
 .type {
   font-size: 1.8rem;
 }
