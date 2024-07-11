@@ -31,7 +31,7 @@ npm run serve
 npm run build
 ```
 
-### Executar testes de unidade
+<!-- ### Executar testes de unidade
 ```
 npm run test:unit
 ```
@@ -39,5 +39,5 @@ npm run test:unit
 ### Resolver problemas de arquivo dom Lint
 ```
 npm run lint
-```
+``` -->
 

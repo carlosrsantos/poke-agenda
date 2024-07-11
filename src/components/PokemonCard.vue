@@ -19,7 +19,7 @@
       <img :src="pokemon.picture" alt="" class="sprite" />
 
       <h4 class="types">Types:</h4>
-      <ul v-for="type in pokemon.types" :key="type.id">
+      <ul v-for="type in pokemon.types" :key="type.slot" >
         <li class="types-name">
           {{ type.type.name }}
         </li>
