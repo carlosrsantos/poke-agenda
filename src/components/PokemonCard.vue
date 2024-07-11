@@ -12,7 +12,6 @@
           {{ type.type.name }}
         </li>
       </ul>
-      <p>Valor:{{ previousButtonDisabled }}</p>
       <div class="buttons">
         <pokemon-button :disabled-button="previousButtonDisabled" :icon="'arrow_back'" @get-pokemon="previousPokemon" />
         <pokemon-button :icon="'arrow_forward'" @get-pokemon="nextPokemon" />
