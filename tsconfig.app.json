@@ -31,5 +31,5 @@
     "src/**/*.vue",
     "tests/**/*.ts",
     "tests/**/*.tsx"
-  ]
+, "tests/PokemonButton.spec.js", "tests/PokemonButton.spec.js"  ]
 }
