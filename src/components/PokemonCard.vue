@@ -13,7 +13,7 @@
         </li>
       </ul>
       <div class="buttons">
-        <pokemon-button :disabled-button="previousButtonDisabled" :icon="'arrow_back'" @get-pokemon="previousPokemon" />
+        <pokemon-button :icon="'arrow_back'" @get-pokemon="previousPokemon" />
         <pokemon-button :icon="'arrow_forward'" @get-pokemon="nextPokemon" />
       </div>
     </div>
@@ -46,8 +46,6 @@ export default defineComponent({
     });
 
     const search = ref("");
-    const nextButtonDisabled = ref(false);
-    const previousButtonDisabled = ref(false);
 
     const getPokemon = (id: string) => {
       pokeApi
@@ -71,13 +69,11 @@ export default defineComponent({
 
     const previousPokemon = () => {
       if (pokemon.id > 1) {
-        previousButtonDisabled.value = false;
         pokemon.id--;
         getPokemon(pokemon.id.toString());
       } else if(pokemon.id < 1){
-        // pokemon.id = 1010;
-        // getPokemon(pokemon.id.toString());
-        previousButtonDisabled.value = true;
+        pokemon.id = 1010;
+        getPokemon(pokemon.id.toString());
       }
     };
     const nextPokemon = () => {
@@ -103,7 +99,7 @@ export default defineComponent({
     });
 
 
-    return { pokemon, previousPokemon, previousButtonDisabled  , nextPokemon, nextButtonDisabled, search };
+    return { pokemon, previousPokemon, nextPokemon, search };
   },
 });
 </script>

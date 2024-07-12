@@ -1,5 +1,5 @@
 <template>
-  <button @click="$emit('get-pokemon')" :disabled="props.disabledButton">
+  <button @click="$emit('get-pokemon')">
     <span class="material-symbols-outlined">
       {{ props.icon }}
     </span>
@@ -14,22 +14,16 @@ export default defineComponent({
     icon: {
       type: String,
       required: true,
-    },
-    disabledButton: {
-      type: Boolean,
-      default: false
     }
   },
 
   setup(props) {
-
-
     return { props };
   },
 });
 </script>
 
-<style>
+<style scoped>
 button {
   font-size: 1.5rem;
   height: 30px;
