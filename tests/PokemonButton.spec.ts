@@ -1,10 +1,14 @@
 import PokemonButton from "../src/components/PokemonButton.vue";
-import { mount } from "@vue/test-utils";
+import { shallowMount } from "@vue/test-utils";
 
 describe("PokemonButton", () => {
-  it("click button", () => {
-    const wrapper = mount(PokemonButton, { props: { icon: "'arrow_back'" } });
+  it("click button should given an emit", async () => {
+    const wrapper = shallowMount(PokemonButton, { props: { icon: "'arrow_back'" } });
 
-    expect(wrapper.trigger('click'));
+    const btn = wrapper.find('button');
+
+    await btn.trigger('click');
+
+    expect(wrapper.vm.$emit('get-pokemon'));
   })
 });
