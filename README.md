@@ -5,6 +5,7 @@
 <img src="https://img.shields.io/badge/Vue.js-35495E?style=for-the-badge&logo=vue.js&logoColor=4FC08D" />
 <img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white" />
 <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white" />
+<img src="https://img.shields.io/badge/Jest-323330?style=for-the-badge&logo=Jest&logoColor=white" />
 </div>
 </br></br>
 
@@ -31,11 +32,12 @@ npm run serve
 npm run build
 ```
 
-<!-- ### Executar testes de unidade
+### Executar testes de unidade
 ```
 npm run test:unit
 ```
 
+<!-- 
 ### Resolver problemas de arquivo dom Lint
 ```
 npm run lint
