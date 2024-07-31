@@ -28,7 +28,7 @@ import {
   ref,
   watch,
 } from "vue";
-import { Pokemon } from "../DTOs/Pokemon";
+import { type Pokemon } from "../DTOs/Pokemon";
 import { pokeApi } from "../service/api";
 import PokemonButton from "./PokemonButton.vue";
 import NavBar from "./NavBar.vue"
