@@ -16,9 +16,11 @@
     "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
+    "verbatimModuleSyntax": true,
     "moduleDetection": "force",
     "noEmit": true,
     "jsx": "preserve",
+    "jsxImportSource": "vue",
     /* Linting */
     "strict": true,
     "noUnusedLocals": true,
@@ -31,5 +33,6 @@
     "src/**/*.vue",
     "tests/**/*.ts",
     "tests/**/*.tsx"
-, "tests/PokemonButton.spec.js", "tests/PokemonButton.spec.js"  ]
+  ],
+  "exclude": ["node_modules"]
 }

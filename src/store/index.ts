@@ -1,14 +1,22 @@
-import { createStore } from 'vuex'
+import { defineStore } from 'pinia';
 
-export default createStore({
-  state: {
+export interface State {
+  search: string;
+}
+
+const useSearchStore = defineStore('search', {
+  state: (): State => ({
+    search: ''
+  }),
+  actions: {
+    inputValue(value: string) {
+      this.search = value
+    }
   },
   getters: {
-  },
-  mutations: {
-  },
-  actions: {
-  },
-  modules: {
+    getSearch(): string {
+      return this.search
+    }
   }
 })
+export default useSearchStore;

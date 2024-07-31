@@ -1,7 +1,6 @@
 <template>
+  <nav-bar v-model:search="search" />
   <main>
-    <search-pokemon v-model:search="search" />
-
     <div class="card">
       <h3 class="titulo">{{ pokemon.name }}</h3>
       <img :src="pokemon.picture" alt="" class="sprite" />
@@ -32,10 +31,14 @@ import {
 import { Pokemon } from "../DTOs/Pokemon";
 import { pokeApi } from "../service/api";
 import PokemonButton from "./PokemonButton.vue";
-import SearchPokemon from "./SearchPokemon.vue";
+import NavBar from "./NavBar.vue"
+import useSearchStore from "../store";
 
 export default defineComponent({
-  components: { PokemonButton, SearchPokemon },
+  components: {
+    PokemonButton,
+    NavBar
+  },
   name: "PokemonCard",
   setup() {
     const pokemon = reactive<Pokemon>({
@@ -45,6 +48,7 @@ export default defineComponent({
       types: [],
     });
 
+    const store = useSearchStore()
     const search = ref("");
 
     const getPokemon = (id: string) => {
@@ -71,7 +75,7 @@ export default defineComponent({
       if (pokemon.id > 1) {
         pokemon.id--;
         getPokemon(pokemon.id.toString());
-      } else if(pokemon.id < 1){
+      } else if (pokemon.id < 1) {
         pokemon.id = 1010;
         getPokemon(pokemon.id.toString());
       }
@@ -86,8 +90,8 @@ export default defineComponent({
       }
     };
 
-    watch(search, () => {
-      if (search.value) searchPokemon(search.value.toString());
+    watch(store.$state, () => {
+      if (store.$state) searchPokemon(store.getSearch);
     });
 
     onBeforeMount(() => {
@@ -119,8 +123,8 @@ main {
   flex-direction: column;
   padding: 5px;
   border-radius: 12px;
-  width: 60%;
-  height: 40%;
+  width: 50%;
+  height: 50%;
   background-color: var(--card-color);
   box-shadow: -3px 5px 9px 0px rgba(50, 50, 50, 0.7);
 }

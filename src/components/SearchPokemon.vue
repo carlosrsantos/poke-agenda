@@ -7,37 +7,32 @@
   </div>
 </template>
 <script lang="ts">
-import { computed } from "vue";
-import { defineComponent } from "vue";
+import { computed, defineComponent } from "vue";
+import useSearchStore from "../store";
+
 export default defineComponent({
   name: "SearchPokemon",
-  props: {
-    search: {
-      type: String,
-      required: true,
-      default: "",
-    },
-  },
-  setup(props, context) {
-    let inputValue = computed({
+
+  setup() {
+    const store = useSearchStore()
+
+    const inputValue = computed({
       get() {
-        return props.search;
+        return store.getSearch
       },
-      set(value) {
-        context.emit('update:search', value);
+      set(value: string) {
+        store.inputValue(value)
       }
     })
 
-    return {
-      inputValue
-    }
-  },
-});
+    return { store, inputValue }
+  }
+})
 </script>
 
 <style scoped>
 .search {
-  margin: 2% 0;
+  margin: 1% 0;
   width: max-content;
   display: inline-flex;
   flex-direction: row;
